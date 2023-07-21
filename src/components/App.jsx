@@ -17,6 +17,12 @@ export const App = () => {
     }
   }, []);
 
+  useEffect(() => {
+    if (prevStateRef.contact !== contacts) {
+      localStorage.setItem('contacts', JSON.stringify(contacts));
+    }
+  }, [contacts]);
+
   const addContact = (name, number) => {
     const existingContacts = contacts.some(
       contact =>
