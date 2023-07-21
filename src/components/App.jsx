@@ -2,13 +2,11 @@ import { ContactForm } from './ContactForm';
 import { ContactList } from './ContactList';
 import { Filter } from './Filter';
 import { nanoid } from 'nanoid';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 
 export const App = () => {
   const [contacts, setContacts] = useState([]);
   const [filter, setFilter] = useState('');
-
-  const prevStateRef = useRef(null);
 
   useEffect(() => {
     const localStorageContacts = JSON.parse(localStorage.getItem('contacts'));
@@ -16,12 +14,6 @@ export const App = () => {
       setContacts(localStorageContacts);
     }
   }, []);
-
-  useEffect(() => {
-    if (prevStateRef.contact !== contacts) {
-      localStorage.setItem('contacts', JSON.stringify(contacts));
-    }
-  }, [contacts]);
 
   const addContact = (name, number) => {
     const existingContacts = contacts.some(
