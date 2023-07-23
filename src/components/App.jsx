@@ -5,24 +5,13 @@ import { nanoid } from 'nanoid';
 import { useState, useEffect, useRef } from 'react';
 
 export const App = () => {
-  const [contacts, setContacts] = useState([]);
+  const [contacts, setContacts] = useState(
+    JSON.parse(localStorage.getItem('contacts')) || []
+  );
   const [filter, setFilter] = useState('');
 
-  const prevStateRef = useRef(null);
-
   useEffect(() => {
-    const localStorageContacts = JSON.parse(localStorage.getItem('contacts'));
-    if (localStorageContacts) {
-      setContacts(localStorageContacts);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (prevStateRef.current && prevStateRef.current.contacts !== contacts) {
-      localStorage.setItem('contacts', JSON.stringify(contacts));
-    }
-
-    prevStateRef.current = contacts;
+    localStorage.setItem('contacts', JSON.stringify(contacts));
   }, [contacts]);
 
   const addContact = (name, number) => {
@@ -38,9 +27,7 @@ export const App = () => {
 
     const newContact = { id: nanoid(), name, number };
 
-    setContacts([...contacts, newContact]);
-
-    localStorage.setItem('contacts', JSON.stringify([...contacts, newContact]));
+    setContacts(pevState => [...pevState, newContact]);
   };
 
   const handleFilterChange = filter => {
@@ -48,11 +35,7 @@ export const App = () => {
   };
 
   const deleteContact = id => {
-    localStorage.setItem(
-      'contacts',
-      JSON.stringify(contacts.filter(contact => contact.id !== id))
-    );
-    setContacts(contacts.filter(contact => contact.id !== id));
+    setContacts(pevState => pevState.filter(contact => contact.id !== id));
   };
 
   const filteredContacts = contacts.filter(contact =>
