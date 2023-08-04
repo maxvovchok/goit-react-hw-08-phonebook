@@ -22,7 +22,7 @@ export const App = () => {
     );
 
     if (existingContacts) {
-      return alert('Rosie Simpson is already in contacts.');
+      return alert('Rosie Simpson is already in contacts');
     }
 
     const newContact = { id: nanoid(), name, number };
