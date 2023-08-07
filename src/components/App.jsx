@@ -2,20 +2,17 @@ import { ContactForm } from './ContactForm';
 import { ContactList } from './ContactList';
 import { Filter } from './Filter';
 import { nanoid } from 'nanoid';
-import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addContact, removeConatct } from 'redux/slice/contactsSlice';
+import { setFilter } from 'redux/slice/filterSlice';
 
 export const App = () => {
-  const [contacts, setContacts] = useState(
-    JSON.parse(localStorage.getItem('contacts')) || []
-  );
-  const [filter, setFilter] = useState('');
+  const arrayContacts = useSelector(state => state.arrayContacts);
+  const filter = useSelector(state => state.setFilter);
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    localStorage.setItem('contacts', JSON.stringify(contacts));
-  }, [contacts]);
-
-  const addContact = (name, number) => {
-    const existingContacts = contacts.some(
+  const addContactRedux = (name, number) => {
+    const existingContacts = arrayContacts.some(
       contact =>
         contact.name.toLowerCase() === name.toLowerCase() ||
         contact.number === number
@@ -27,26 +24,27 @@ export const App = () => {
 
     const newContact = { id: nanoid(), name, number };
 
-    setContacts(pevState => [...pevState, newContact]);
+    dispatch(addContact(newContact));
+    name = '';
   };
 
-  const handleFilterChange = filter => {
-    setFilter(filter);
+  const handleFilterChange = filterValue => {
+    dispatch(setFilter(filterValue));
   };
+
+  const filteredContacts = arrayContacts.filter(contact =>
+    contact.name.includes(filter)
+  );
 
   const deleteContact = id => {
-    setContacts(pevState => pevState.filter(contact => contact.id !== id));
+    dispatch(removeConatct(id));
   };
-
-  const filteredContacts = contacts.filter(contact =>
-    contact.name.toLowerCase().includes(filter.toLowerCase())
-  );
   return (
     <div>
       <h1>Phonebook</h1>
-      <ContactForm addContact={addContact} />
+      <ContactForm addContact={addContactRedux} />
       <h2>Contacts</h2>
-      <Filter filter={filter} onFilterChange={handleFilterChange} />
+      <Filter onFilterChange={handleFilterChange} />
       <ContactList contacts={filteredContacts} onDelete={deleteContact} />
     </div>
   );
