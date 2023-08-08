@@ -1,9 +1,13 @@
 import React from 'react';
+import { setFilter } from 'redux/slice/filterSlice';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 
-export const Filter = ({ onFilterChange }) => {
+export const Filter = () => {
+  const dispatch = useDispatch();
+
   const handleChange = e => {
-    onFilterChange(e.target.value);
+    dispatch(setFilter(e.target.value));
   };
 
   return (
