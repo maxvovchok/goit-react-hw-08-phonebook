@@ -1,3 +1,3 @@
-export const getFilteredContacts = ({ arrayContacts, setFilter }) => {
-  return arrayContacts.filter(contact => contact.name.includes(setFilter));
-};
+export const getArrayContacts = ({ arrayContacts }) => arrayContacts;
+
+export const getFilter = ({ setFilter }) => setFilter;

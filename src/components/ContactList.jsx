@@ -1,13 +1,17 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeConatct } from 'redux/slice/contactsSlice';
-import { getFilteredContacts } from 'redux/selectors';
+import { getArrayContacts, getFilter } from 'redux/selectors';
 import PropTypes from 'prop-types';
 
 export const ContactList = () => {
+  const arrayContacts = useSelector(getArrayContacts);
+  const filter = useSelector(getFilter);
   const dispatch = useDispatch();
 
-  const filteredContacts = useSelector(getFilteredContacts);
+  const filteredContacts = arrayContacts.filter(({ name }) =>
+    name.toLowerCase().includes(filter.toLowerCase())
+  );
 
   const deleteContact = id => {
     dispatch(removeConatct(id));
