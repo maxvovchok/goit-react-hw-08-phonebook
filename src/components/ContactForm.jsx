@@ -24,7 +24,7 @@ export const ContactForm = () => {
     const number = form.elements.number.value;
 
     if (contactExists(arrayContacts, name, number)) {
-      return alert('Rosie Simpson is already in contacts.');
+      return alert('Rosie Simpson is already in contacts');
     }
     const newContact = { id: nanoid(), name, number };
     dispatch(addContact(newContact));
