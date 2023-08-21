@@ -1,18 +1,18 @@
 import { nanoid } from 'nanoid';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { getArrayContacts } from 'redux/selectors';
-import { addContact } from 'redux/slice/contactsSlice';
+import { selectArrayContacts } from 'redux/selectors';
+import { addContact } from 'redux/operations';
 
 export const ContactForm = () => {
-  const arrayContacts = useSelector(getArrayContacts);
+  const arrayContacts = useSelector(selectArrayContacts);
   const dispatch = useDispatch();
 
-  const contactExists = (contacts, name, number) => {
+  const contactExists = (contacts, name, phone) => {
     return contacts.some(
       contact =>
         contact.name.toLowerCase() === name.toLowerCase() ||
-        contact.number === number
+        contact.phone === phone
     );
   };
 
@@ -21,12 +21,12 @@ export const ContactForm = () => {
 
     const form = e.currentTarget;
     const name = form.elements.name.value;
-    const number = form.elements.number.value;
+    const phone = form.elements.number.value;
 
-    if (contactExists(arrayContacts, name, number)) {
+    if (contactExists(arrayContacts, name, phone)) {
       return alert('Rosie Simpson is already in contacts');
     }
-    const newContact = { id: nanoid(), name, number };
+    const newContact = { id: nanoid(), name, phone };
     dispatch(addContact(newContact));
 
     form.reset();
