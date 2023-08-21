@@ -1,15 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Notiflix from 'notiflix';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchContacts } from 'redux/operations';
 import { useEffect } from 'react';
 import { deleteContact } from 'redux/operations';
-import {
-  selectArrayContacts,
-  selectFilter,
-  selectFilteredContacts,
-} from 'redux/selectors';
+import { selectFilteredContacts } from 'redux/selectors';
 
 export const ContactList = () => {
   const filteredContacts = useSelector(selectFilteredContacts);
