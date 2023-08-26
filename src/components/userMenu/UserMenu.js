@@ -5,7 +5,6 @@ import { logOut } from 'redux/auth/operations.js';
 
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { hover } from '@testing-library/user-event/dist/hover';
 
 // import avatar from 'components/userMenu/avatar';
 

@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import { Suspense } from 'react';
-import { AppBar, Toolbar, Typography } from '@mui/material';
+import { AppBar } from '@mui/material';
 
 import Navigation from 'components/Menu/Navigation';
 import AuthNav from 'components/Menu/AuthNav';

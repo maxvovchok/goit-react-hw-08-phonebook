@@ -10,7 +10,7 @@ const Contacts = lazy(() => import('page/Contacts'));
 const Login = lazy(() => import('page/Login'));
 
 export const App = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   // useDispatch(() => {
   //   dispatch(CurrentUser());
