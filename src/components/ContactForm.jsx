@@ -1,18 +1,17 @@
-import { nanoid } from 'nanoid';
-
 import { useDispatch, useSelector } from 'react-redux';
-import { selectArrayContacts } from 'redux/selectors';
-import { addContact } from 'redux/operations';
+import { addContact } from 'redux/contacts/operations';
+import { selectArrayContacts } from 'redux/contacts/selectors';
+import { Typography, TextField, Button, Container } from '@mui/material';
 
 export const ContactForm = () => {
   const arrayContacts = useSelector(selectArrayContacts);
   const dispatch = useDispatch();
 
-  const contactExists = (contacts, name, phone) => {
+  const contactExists = (contacts, name, number) => {
     return contacts.some(
       contact =>
         contact.name.toLowerCase() === name.toLowerCase() ||
-        contact.phone === phone
+        contact.number === number
     );
   };
 
@@ -21,37 +20,50 @@ export const ContactForm = () => {
 
     const form = e.currentTarget;
     const name = form.elements.name.value;
-    const phone = form.elements.number.value;
+    const number = form.elements.number.value;
 
-    if (contactExists(arrayContacts, name, phone)) {
-      return alert('Rosie Simpson is already in contacts');
+    if (contactExists(arrayContacts, name, number)) {
+      return alert('Contact already exists');
     }
-    const newContact = { id: nanoid(), name, phone };
+    const newContact = { name, number };
     dispatch(addContact(newContact));
 
     form.reset();
   };
 
+  const formStyles = {
+    width: '500px',
+    padding: '20px',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '16px',
+    margin: '50px auto',
+  };
+
   return (
-    <form onSubmit={handleSubmit}>
-      <div
-        style={{
-          border: '2px solid black',
-          width: '500px',
-        }}
-      >
-        <h2>Name</h2>
-        <input type="text" name="name" required />
-        <h2>Number</h2>
-        <input
+    <Container>
+      <form onSubmit={handleSubmit} style={formStyles}>
+        <Typography variant="h6">Add New Contact</Typography>
+        <TextField
+          label="Name"
+          variant="outlined"
+          type="text"
+          name="name"
+          required
+        />
+        <TextField
+          label="Number"
+          variant="outlined"
           type="tel"
           name="number"
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
         />
-        <button>Add contact</button>
-      </div>
-    </form>
+        <Button variant="contained" color="primary" type="submit">
+          Add Contact
+        </Button>
+      </form>
+    </Container>
   );
 };

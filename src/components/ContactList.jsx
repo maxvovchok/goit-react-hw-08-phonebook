@@ -1,10 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchContacts } from 'redux/operations';
+import { fetchContacts, deleteContact } from 'redux/contacts/operations';
 import { useEffect } from 'react';
-import { deleteContact } from 'redux/operations';
-import { selectFilteredContacts } from 'redux/selectors';
+import { selectFilteredContacts } from 'redux/contacts/selectors';
+import { Button, List, ListItem, ListItemText, Container } from '@mui/material';
 
 export const ContactList = () => {
   const filteredContacts = useSelector(selectFilteredContacts);
@@ -14,31 +13,32 @@ export const ContactList = () => {
     dispatch(fetchContacts());
   }, [dispatch]);
 
-  const deleteContact1 = id => {
+  const handleDelete = id => {
     dispatch(deleteContact(id));
   };
 
-  return (
-    <>
-      <ul>
-        {filteredContacts.map(({ name, phone, id }) => (
-          <li key={id}>
-            {name}: {phone}
-            <button onClick={() => deleteContact1(id)}>Delete</button>
-          </li>
-        ))}
-      </ul>
-    </>
-  );
-};
+  const listStyles = {
+    maxWidth: '550px',
+    margin: '0 auto',
+    padding: '20px',
+  };
 
-ContactList.prototype = {
-  contacts: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
-    })
-  ),
-  onDelete: PropTypes.func.isRequired,
+  return (
+    <Container style={listStyles}>
+      <List>
+        {filteredContacts.map(({ name, number, id }) => (
+          <ListItem key={id}>
+            <ListItemText primary={`${name}: ${number}`} />
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={() => handleDelete(id)}
+            >
+              Delete
+            </Button>
+          </ListItem>
+        ))}
+      </List>
+    </Container>
+  );
 };

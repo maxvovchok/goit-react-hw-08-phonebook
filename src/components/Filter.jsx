@@ -1,7 +1,7 @@
 import React from 'react';
-import { setFilter } from 'redux/slice/filterSlice';
+import { setFilter } from 'redux/contacts/filterSlice';
 import { useDispatch } from 'react-redux';
-import PropTypes from 'prop-types';
+import { TextField, Container } from '@mui/material';
 
 export const Filter = () => {
   const dispatch = useDispatch();
@@ -10,15 +10,20 @@ export const Filter = () => {
     dispatch(setFilter(e.target.value));
   };
 
-  return (
-    <div>
-      <p>Find contacts by name</p>
-      <input onChange={handleChange} type="text" />
-    </div>
-  );
-};
+  const filterStyles = {
+    marginBottom: '16px',
+    marginLeft: '150px',
+  };
 
-Filter.prototype = {
-  filter: PropTypes.string.isRequired,
-  onFilterChange: PropTypes.func.isRequired,
+  return (
+    <Container>
+      <TextField
+        label="Find contacts by name"
+        variant="outlined"
+        type="text"
+        onChange={handleChange}
+        style={filterStyles}
+      />
+    </Container>
+  );
 };
