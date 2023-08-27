@@ -1,5 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchContacts, addContact, deleteContact } from 'redux/contacts/operations';
+import {
+  fetchContacts,
+  addContact,
+  deleteContact,
+} from 'redux/contacts/operations';
 
 export const contactsSlice = createSlice({
   name: 'arrayContacts',
@@ -55,3 +59,5 @@ export const contactsSlice = createSlice({
     },
   },
 });
+
+export const contactsReducer = contactsSlice.reducer;

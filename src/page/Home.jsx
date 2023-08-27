@@ -1,18 +1,3 @@
-// const Home = () => {
-//   return (
-//     <>
-//       <h1>Welcome to the Phonebook page!</h1>
-//       <p>
-//         Our Phonebook is point for all your important contact information. Here
-//         you can conveniently manage all your contacts, store additional
-//         information and easily find the data you need.
-//       </p>
-//     </>
-//   );
-// };
-
-// export default Home;
-
 import React from 'react';
 import { Typography, Container } from '@mui/material';
 

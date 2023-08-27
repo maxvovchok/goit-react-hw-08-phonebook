@@ -2,9 +2,10 @@ import { Routes, Route } from 'react-router-dom';
 import { lazy } from 'react';
 import AppBarMenu from './Menu/AppBarMenu';
 import { PrivateRoute } from './userMenu/PrivateRoute';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { LoggedIn } from 'redux/auth/selectors';
 import { PublicRoute } from './userMenu/PublicRoute';
+import { getCurrentUser } from 'redux/auth/operations';
 
 const Home = lazy(() => import('page/Home'));
 const Register = lazy(() => import('page/Register'));
@@ -13,6 +14,10 @@ const Login = lazy(() => import('page/Login'));
 
 export const App = () => {
   const isLoggedIn = useSelector(LoggedIn);
+
+  const dispatch = useDispatch();
+
+  dispatch(getCurrentUser());
 
   return (
     <div>
