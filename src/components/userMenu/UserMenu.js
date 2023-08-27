@@ -26,7 +26,7 @@ export default function UserMenu() {
       transition: 'background-color 0.3s ease',
       '&:hover': {
         backgroundColor: '#d32f2f',
-        transition: 'background-color 0.3s ease', // Додайте цю стрічку
+        transition: 'background-color 0.3s ease', 
       },
     },
   };

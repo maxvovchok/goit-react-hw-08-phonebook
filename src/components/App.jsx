@@ -1,8 +1,10 @@
 import { Routes, Route } from 'react-router-dom';
 import { lazy } from 'react';
-// import { useDispatch } from 'react-redux';
 import AppBarMenu from './Menu/AppBarMenu';
-// import { CurrentUser } from 'redux/auth/operations.js';
+import { PrivateRoute } from './userMenu/PrivateRoute';
+import { useSelector } from 'react-redux';
+import { LoggedIn } from 'redux/auth/selectors';
+import { PublicRoute } from './userMenu/PublicRoute';
 
 const Home = lazy(() => import('page/Home'));
 const Register = lazy(() => import('page/Register'));
@@ -10,11 +12,7 @@ const Contacts = lazy(() => import('page/Contacts'));
 const Login = lazy(() => import('page/Login'));
 
 export const App = () => {
-  // const dispatch = useDispatch();
-
-  // useDispatch(() => {
-  //   dispatch(CurrentUser());
-  // }, [dispatch]);
+  const isLoggedIn = useSelector(LoggedIn);
 
   return (
     <div>
@@ -22,9 +20,23 @@ export const App = () => {
         <Route path="/" element={<AppBarMenu />}>
           <Route index element={<Home />} />
           <Route path="/home" element={<Home />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/contacts" element={<Contacts />} />
+
+          <Route
+            element={
+              <PrivateRoute isVisible={isLoggedIn} redirectTo="/login" />
+            }
+          >
+            <Route path="/contacts" element={<Contacts />} />
+          </Route>
+
+          <Route
+            element={
+              <PublicRoute isVisible={isLoggedIn} redirectTo="/contacts" />
+            }
+          >
+            <Route path="register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+          </Route>
         </Route>
       </Routes>
     </div>
