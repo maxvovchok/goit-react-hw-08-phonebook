@@ -25,7 +25,7 @@ const Navigation = () => {
   return (
     <Toolbar>
       <Typography>
-        <NavLink to="/home" style={styles.navLink}>
+        <NavLink to="/" style={styles.navLink}>
           Home
         </NavLink>
       </Typography>
