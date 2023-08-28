@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import { lazy } from 'react';
+import { useState, useEffect } from 'react';
 import AppBarMenu from './Menu/AppBarMenu';
 import { PrivateRoute } from './userMenu/PrivateRoute';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,11 +14,17 @@ const Contacts = lazy(() => import('page/Contacts'));
 const Login = lazy(() => import('page/Login'));
 
 export const App = () => {
+  const [hasFetchedUser, setHasFetchedUser] = useState(false);
   const isLoggedIn = useSelector(LoggedIn);
 
   const dispatch = useDispatch();
 
-  dispatch(getCurrentUser());
+  useEffect(() => {
+    if (!hasFetchedUser) {
+      dispatch(getCurrentUser());
+      setHasFetchedUser(true);
+    }
+  }, [dispatch, hasFetchedUser]);
 
   return (
     <div>
