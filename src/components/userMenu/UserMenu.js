@@ -1,13 +1,13 @@
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { userName } from 'redux/auth/selectors';
+import { selectUserName } from 'redux/auth/selectors';
 import { logOut } from 'redux/auth/operations.js';
 
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 
 export default function UserMenu() {
-  const name = useSelector(userName);
+  const name = useSelector(selectUserName);
   const dispatch = useDispatch();
 
   const styles = {
