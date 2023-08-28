@@ -1,0 +1,19 @@
+.appBar {
+  padding-right: 30px;
+  padding-left: 30px;
+}
+
+.navLink {
+  text-decoration: none;
+  color: #ffffff;
+  margin-right: 20px;
+}
+
+.navLink:hover {
+  text-decoration: underline;
+}
+
+.toolbar {
+  background-color: #2196f3;
+  color: #ffffff;
+}

@@ -1,7 +1,7 @@
 import React from 'react';
-import { ContactForm } from 'components/ContactForm';
-import { ContactList } from 'components/ContactList';
-import { Filter } from 'components/Filter';
+import { ContactForm } from 'components/contactForm/ContactForm';
+import { ContactList } from 'components/contactList/ContactList';
+import { Filter } from 'components/filter/Filter';
 import { Container } from '@mui/material';
 
 const Contacts = () => {

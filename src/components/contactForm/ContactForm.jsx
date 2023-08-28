@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from 'redux/contacts/operations';
 import { selectArrayContacts } from 'redux/contacts/selectors';
 import { Typography, TextField, Button, Container } from '@mui/material';
+import styles from 'components/contactForm/ContactForm.module.css';
 
 export const ContactForm = () => {
   const arrayContacts = useSelector(selectArrayContacts);
@@ -31,18 +32,9 @@ export const ContactForm = () => {
     form.reset();
   };
 
-  const formStyles = {
-    width: '500px',
-    padding: '20px',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '16px',
-    margin: '50px auto',
-  };
-
   return (
     <Container>
-      <form onSubmit={handleSubmit} style={formStyles}>
+      <form onSubmit={handleSubmit} className={styles.form}>
         <Typography variant="h6">Add New Contact</Typography>
         <TextField
           label="Name"

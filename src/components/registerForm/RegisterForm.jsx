@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { logIn } from 'redux/auth/operations.js';
+import { register } from 'redux/auth/operations.js';
 import {
   TextField,
   Button,
-  Typography,
-  Container,
   InputAdornment,
+  Typography,
   IconButton,
+  Container,
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import styles from 'components/registerForm/RegisterForm.module.css';
 
-export const LoginForm = () => {
+export const RegisterForm = () => {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -20,44 +22,45 @@ export const LoginForm = () => {
 
   const handleChange = ({ target: { name, value } }) => {
     switch (name) {
+      case 'name':
+        return setName(value);
+
       case 'email':
-        setEmail(value);
-        break;
+        return setEmail(value);
 
       case 'password':
-        setPassword(value);
-        break;
-
+        return setPassword(value);
       default:
         return;
     }
+  };
+
+  const handleSubmit = e => {
+    e.preventDefault();
+
+    dispatch(register({ name, email, password }));
+
+    setName('');
+    setEmail('');
+    setPassword('');
   };
 
   const handlePasswordVisibility = () => {
     setShowPassword(pervState => !pervState);
   };
 
-  const handleSubmit = e => {
-    e.preventDefault();
-
-    dispatch(logIn({ email, password }));
-    setEmail('');
-    setPassword('');
-  };
-
-  const formStyles = {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '16px',
-    maxWidth: '400px',
-    margin: '0 auto',
-    padding: '20px',
-  };
-
   return (
     <Container>
-      <form onSubmit={handleSubmit} style={formStyles}>
-        <Typography variant="h6">Log In</Typography>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <Typography variant="h6">Register</Typography>
+        <TextField
+          label="Name"
+          variant="outlined"
+          name="name"
+          value={name}
+          onChange={handleChange}
+          required
+        />
         <TextField
           label="Email"
           variant="outlined"
@@ -86,7 +89,7 @@ export const LoginForm = () => {
           }}
         />
         <Button variant="contained" color="primary" type="submit">
-          Log In
+          Sign Up
         </Button>
       </form>
     </Container>

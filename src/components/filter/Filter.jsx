@@ -2,17 +2,13 @@ import React from 'react';
 import { setFilter } from 'redux/contacts/filterSlice';
 import { useDispatch } from 'react-redux';
 import { TextField, Container } from '@mui/material';
+import styles from 'components/filter/Filter.module.css';
 
 export const Filter = () => {
   const dispatch = useDispatch();
 
   const handleChange = e => {
     dispatch(setFilter(e.target.value));
-  };
-
-  const filterStyles = {
-    marginBottom: '16px',
-    marginLeft: '150px',
   };
 
   return (
@@ -22,7 +18,7 @@ export const Filter = () => {
         variant="outlined"
         type="text"
         onChange={handleChange}
-        style={filterStyles}
+        className={styles.filter}
       />
     </Container>
   );

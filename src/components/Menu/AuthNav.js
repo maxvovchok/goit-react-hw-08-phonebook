@@ -1,28 +1,18 @@
 import * as React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Toolbar, Typography } from '@mui/material';
-
-const styles = {
-  navLink: {
-    textDecoration: 'none',
-    color: '#ffffff',
-    marginRight: '20px',
-    '&:hover': {
-      textDecoration: 'underline',
-    },
-  },
-};
+import styles from 'components/Menu/Menu.module.css';
 
 export default function AuthNav() {
   return (
     <Toolbar>
       <Typography>
-        <NavLink to="/register" style={styles.navLink}>
+        <NavLink to="/register" className={styles.navLink}>
           Register
         </NavLink>
       </Typography>
       <Typography>
-        <NavLink to="/login" style={styles.navLink}>
+        <NavLink to="/login" className={styles.navLink}>
           Log in
         </NavLink>
       </Typography>

@@ -15,17 +15,13 @@ const Contacts = lazy(() => import('page/Contacts'));
 const Login = lazy(() => import('page/Login'));
 
 export const App = () => {
-  const [hasFetchedUser, setHasFetchedUser] = useState(false);
   const isRefreshing = useSelector(selectRefreshing);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!hasFetchedUser) {
-      dispatch(getCurrentUser());
-      setHasFetchedUser(true);
-    }
-  }, [dispatch, hasFetchedUser]);
+    dispatch(getCurrentUser());
+  }, [dispatch]);
 
   return isRefreshing ? (
     <b>Refreshing user...</b>

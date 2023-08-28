@@ -6,23 +6,17 @@ import AuthNav from 'components/Menu/AuthNav';
 import UserMenu from 'components/userMenu/UserMenu';
 
 import { selectLoggedIn } from 'redux/auth/selectors';
-
-const styles = {
-  appBar: {
-    paddingRight: '30px',
-    paddingLeft: '30px',
-    display: 'flex',
-    backgroundColor: '#2196F3',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-};
+import styles from 'components/Menu/Menu.module.css';
 
 export const AppBarMenu = () => {
   const isLoggedIn = useSelector(selectLoggedIn);
 
   return (
-    <AppBar position="static" sx={styles.appBar}>
+    <AppBar
+      position="static"
+      sx={{ flexDirection: 'row', justifyContent: 'space-between' }}
+      className={styles.appBar}
+    >
       <Navigation />
       {isLoggedIn ? <UserMenu /> : <AuthNav />}
     </AppBar>

@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import { AppBarMenu } from 'components/Menu/AppBar';
+import { AppBarMenu } from 'components/Menu/AppBarMenu';
 import { Suspense } from 'react';
 
 export const Layout = () => {

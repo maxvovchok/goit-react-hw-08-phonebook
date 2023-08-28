@@ -4,6 +4,7 @@ import { fetchContacts, deleteContact } from 'redux/contacts/operations';
 import { useEffect } from 'react';
 import { selectFilteredContacts } from 'redux/contacts/selectors';
 import { Button, List, ListItem, ListItemText, Container } from '@mui/material';
+import styles from 'components/contactList/ContactList.module.css';
 
 export const ContactList = () => {
   const filteredContacts = useSelector(selectFilteredContacts);
@@ -17,14 +18,8 @@ export const ContactList = () => {
     dispatch(deleteContact(id));
   };
 
-  const listStyles = {
-    maxWidth: '550px',
-    margin: '0 auto',
-    padding: '20px',
-  };
-
   return (
-    <Container style={listStyles}>
+    <Container className={styles.list}>
       <List>
         {filteredContacts.map(({ name, number, id }) => (
           <ListItem key={id}>

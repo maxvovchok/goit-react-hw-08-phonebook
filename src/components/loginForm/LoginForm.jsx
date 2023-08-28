@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { register } from 'redux/auth/operations.js';
+import { logIn } from 'redux/auth/operations.js';
 import {
   TextField,
   Button,
-  InputAdornment,
   Typography,
-  IconButton,
   Container,
+  InputAdornment,
+  IconButton,
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import styles from 'components/loginForm/LoginForm.module.css';
 
-export const RegisterForm = () => {
-  const [name, setName] = useState('');
+export const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -21,54 +21,35 @@ export const RegisterForm = () => {
 
   const handleChange = ({ target: { name, value } }) => {
     switch (name) {
-      case 'name':
-        return setName(value);
-
       case 'email':
-        return setEmail(value);
+        setEmail(value);
+        break;
 
       case 'password':
-        return setPassword(value);
+        setPassword(value);
+        break;
+
       default:
         return;
     }
-  };
-
-  const handleSubmit = e => {
-    e.preventDefault();
-
-    dispatch(register({ name, email, password }));
-
-    setName('');
-    setEmail('');
-    setPassword('');
   };
 
   const handlePasswordVisibility = () => {
     setShowPassword(pervState => !pervState);
   };
 
-  const formStyles = {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '16px',
-    maxWidth: '400px',
-    margin: '0 auto',
-    padding: '20px',
+  const handleSubmit = e => {
+    e.preventDefault();
+
+    dispatch(logIn({ email, password }));
+    setEmail('');
+    setPassword('');
   };
 
   return (
     <Container>
-      <form onSubmit={handleSubmit} style={formStyles}>
-        <Typography variant="h6">Register</Typography>
-        <TextField
-          label="Name"
-          variant="outlined"
-          name="name"
-          value={name}
-          onChange={handleChange}
-          required
-        />
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <Typography variant="h6">Log In</Typography>
         <TextField
           label="Email"
           variant="outlined"
@@ -97,7 +78,7 @@ export const RegisterForm = () => {
           }}
         />
         <Button variant="contained" color="primary" type="submit">
-          Sign Up
+          Log In
         </Button>
       </form>
     </Container>
