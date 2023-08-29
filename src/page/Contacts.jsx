@@ -8,7 +8,12 @@ const Contacts = () => {
   return (
     <Container
       maxWidth="md"
-      style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        width: '600px',
+      }}
     >
       <ContactForm />
       <Filter />
